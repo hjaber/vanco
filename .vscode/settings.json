@@ -1,0 +1,7 @@
+{
+  "cSpell.words": ["creatnine", "Vanco"],
+  //hide node_modules folder
+  "files.exclude": {
+    "**/node_modules": true
+  }
+}
