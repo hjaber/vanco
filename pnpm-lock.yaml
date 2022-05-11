@@ -2,11 +2,11 @@ lockfileVersion: 5.4
 
 specifiers:
   '@chakra-ui/react': ^1.8.8
-  '@emotion/react': ^11.9.0
-  '@emotion/styled': ^11.8.1
+  '@emotion/react': ^11
+  '@emotion/styled': ^11
   eslint: 8.15.0
   eslint-config-next: 12.1.6
-  framer-motion: ^6.3.3
+  framer-motion: ^6
   next: 12.1.6
   react: 18.1.0
   react-dom: 18.1.0
@@ -72,7 +72,7 @@ packages:
     resolution: {integrity: sha512-WxYHHUWF2uZ7Hp1K+D1xQgbgkGUfA+5UPOegEXGt2Y5SMog/rYCVaifLZDbw8UkNXozEqqrZTy6bglL7xTaCOw==}
     engines: {node: '>=6.9.0'}
     dependencies:
-      core-js-pure: 3.22.4
+      core-js-pure: 3.22.5
       regenerator-runtime: 0.13.9
     dev: true
 
@@ -1453,8 +1453,8 @@ packages:
     resolution: {integrity: sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==}
     engines: {node: '>=6'}
 
-  /caniuse-lite/1.0.30001338:
-    resolution: {integrity: sha512-1gLHWyfVoRDsHieO+CaeYe7jSo/MT7D7lhaXUiwwbuR5BwQxORs0f1tAwUSQr3YbxRXJvxHM/PA5FfPQRnsPeQ==}
+  /caniuse-lite/1.0.30001339:
+    resolution: {integrity: sha512-Es8PiVqCe+uXdms0Gu5xP5PF2bxLR7OBp3wUzUnuO7OHzhOfCyg3hdiGWVPVxhiuniOzng+hTc1u3fEQ0TlkSQ==}
     dev: false
 
   /chalk/2.4.2:
@@ -1515,8 +1515,8 @@ packages:
       toggle-selection: 1.0.6
     dev: false
 
-  /core-js-pure/3.22.4:
-    resolution: {integrity: sha512-4iF+QZkpzIz0prAFuepmxwJ2h5t4agvE8WPYqs2mjLJMNNwJOnpch76w2Q7bUfCPEv/V7wpvOfog0w273M+ZSw==}
+  /core-js-pure/3.22.5:
+    resolution: {integrity: sha512-8xo9R00iYD7TcV7OrC98GwxiUEAabVWO3dix+uyWjnYrx9fyASLlIX+f/3p5dW5qByaP2bcZ8X/T47s55et/tA==}
     requiresBuild: true
     dev: true
 
@@ -2468,7 +2468,7 @@ packages:
         optional: true
     dependencies:
       '@next/env': 12.1.6
-      caniuse-lite: 1.0.30001338
+      caniuse-lite: 1.0.30001339
       postcss: 8.4.5
       react: 18.1.0
       react-dom: 18.1.0_react@18.1.0
