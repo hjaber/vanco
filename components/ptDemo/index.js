@@ -17,7 +17,7 @@ export default function PatientInfo({ handleChange, pt, setPt }) {
       >
         <Age handleChange={handleChange} age={pt.age} />
         <Creatinine handleChange={handleChange} scr={pt.scr} age={pt.age} />
-        <Weight handleChange={handleChange} />
+        <Weight handleChange={handleChange} weight={pt.weight} />
         <Height handleChange={handleChange} height={pt.height} />
         <Gender handleChange={handleChange} gender={pt.gender} />
       </Flex>
