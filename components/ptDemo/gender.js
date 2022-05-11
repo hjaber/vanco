@@ -11,7 +11,7 @@ export default function Gender({ handleChange, gender }) {
   return (
     <Box>
       <FormControl id="gender" name="gender">
-        <FormLabel htmlFor="gender" color="gray">
+        <FormLabel htmlFor="gender" color="gray" textAlign="center">
           gender
         </FormLabel>
         <RadioGroup

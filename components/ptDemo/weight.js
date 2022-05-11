@@ -12,7 +12,7 @@ export default function Weight({ weight, handleChange }) {
   return (
     <Box>
       <FormControl isInvalid={weight < 20 || weight > 500}>
-        <FormLabel htmlFor="weight" color="gray">
+        <FormLabel htmlFor="weight" color="gray" textAlign="center">
           weight
         </FormLabel>
         <InputGroup size="xs">

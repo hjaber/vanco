@@ -12,7 +12,7 @@ export default function Height({ handleChange, height }) {
   return (
     <Box>
       <FormControl isInvalid={height < 50 || height > 96}>
-        <FormLabel htmlFor="height" color="gray">
+        <FormLabel htmlFor="height" color="gray" textAlign="center">
           height
         </FormLabel>
         <InputGroup size="xs">

@@ -15,7 +15,7 @@ export default function Creatinine({ age, handleChange, scr }) {
   return (
     <Box>
       <FormControl isInvalid={scr < 0.01 || scr > 20}>
-        <FormLabel htmlFor="scr" color="gray">
+        <FormLabel htmlFor="scr" color="gray" textAlign="center">
           creatnine
         </FormLabel>
         <InputGroup size="xs">
@@ -33,7 +33,11 @@ export default function Creatinine({ age, handleChange, scr }) {
             placeholder="0.9"
             variant="flushed"
           />
-          <InputRightElement>mg/dL</InputRightElement>
+          <InputRightElement>
+            <span>
+              &nbsp;<sup>mg</sup>&frasl;<sub>dL</sub>
+            </span>
+          </InputRightElement>
         </InputGroup>
         {ageFactor && (
           <FormHelperText fontSize="0.7em">consider rounding up</FormHelperText>

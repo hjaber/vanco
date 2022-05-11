@@ -7,10 +7,11 @@ export default function WtCard({ pt, setPt, title, value }) {
       direction="column"
       gap="0.2em"
       alignItems="center"
+      borderRadius="md"
+      bgColor={pt.renalWt === value ? "gray.100" : "white"}
       _hover={{
-        bgColor: "gray.100",
+        bgColor: "gray.200",
         transition: "0.1s ease-in",
-        borderRadius: "5px",
         cursor: "pointer",
       }}
       transition="0.5s ease-in" /* hover off transition */

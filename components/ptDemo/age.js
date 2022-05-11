@@ -10,7 +10,7 @@ export default function Age({ age, handleChange }) {
   return (
     <Box>
       <FormControl isInvalid={age < 2 || age > 120}>
-        <FormLabel htmlFor="age" color="gray">
+        <FormLabel htmlFor="age" color="gray" textAlign="center">
           age
         </FormLabel>
         <Input
