@@ -5,18 +5,18 @@ import WtCard from "@/components/dosingWt/wtCard";
 import MetricCard from "@/components/dosingWt/metricCard";
 
 export default function DosingWt({ pt, setPt }) {
-  const { gender, height, weight: actualWt } = pt;
+  const { gender, height, weight } = pt;
   const heightCm = height * 2.54;
   const heightMeters = heightCm / 100;
   const genderFactor = gender === "male" ? 50 : 45.5;
   const idealWt = formatNum(genderFactor + 2.3 * (height - 60), 2);
-  const adjustedWt = formatNum(idealWt + 0.4 * (actualWt - idealWt), 2);
-  const percentIdeal = Math.round(((actualWt - idealWt) / idealWt) * 100) + 100;
-  const bmi = formatNum(actualWt / Math.pow(heightMeters, 2), 2);
-  const bsa = formatNum(Math.sqrt((heightCm * actualWt) / 3600, 2), 2);
+  const adjustedWt = formatNum(idealWt + 0.4 * (weight - idealWt), 2);
+  const percentIdeal = Math.round(((weight - idealWt) / idealWt) * 100) + 100;
+  const bmi = formatNum(weight / Math.pow(heightMeters, 2), 2);
+  const bsa = formatNum(Math.sqrt((heightCm * weight) / 3600, 2), 2);
   const renalWt =
-    actualWt < idealWt
-      ? { renalWt: actualWt, renalWtType: "actual" }
+    weight < idealWt
+      ? { renalWt: weight, renalWtType: "actual" }
       : percentIdeal > 119
       ? { renalWt: adjustedWt, renalWtType: "adjusted" }
       : { renalWt: idealWt, renalWtType: "ideal" };
@@ -29,7 +29,7 @@ export default function DosingWt({ pt, setPt }) {
   const weights = [
     {
       title: "actual",
-      value: actualWt,
+      value: weight,
     },
     {
       title: "ideal",
