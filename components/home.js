@@ -5,12 +5,13 @@ import PtDemo from "@/components/ptDemo/index";
 export default function Home() {
   const [pt, setPt] = useState({
     gender: "male",
-    loading: false,
   });
   console.log(pt);
 
   const handleChange = (name, value) => {
     setPt({ ...pt, [name]: value });
+    //batch draft update
+    //setPt((v) => ({ ...v, weight: v.weight + 10 }));
   };
   return (
     <Box>
@@ -22,7 +23,7 @@ export default function Home() {
             size="xs"
             type="reset"
             onClick={() => {
-              setPt({ icu: false, gender: "male", loading: false });
+              setPt({ gender: "male" });
             }}
             boxShadow="md"
             m="auto"

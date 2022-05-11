@@ -1,5 +1,9 @@
 export const tokens = {
   colors: {
+    inverseToken: {
+      default: "black",
+      _dark: "white",
+    },
     bgToken: {
       default: "white",
       _dark: "black",

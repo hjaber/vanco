@@ -4,6 +4,7 @@ import Creatinine from "@/components/ptDemo/creatinine";
 import Weight from "@/components/ptDemo/weight";
 import Height from "@/components/ptDemo/height";
 import Gender from "@/components/ptDemo/gender";
+import DosingWt from "@/components/dosingWt/index";
 
 export default function PatientInfo({ handleChange, pt, setPt }) {
   return (
@@ -16,19 +17,14 @@ export default function PatientInfo({ handleChange, pt, setPt }) {
       >
         <Age handleChange={handleChange} age={pt.age} />
         <Creatinine handleChange={handleChange} scr={pt.scr} age={pt.age} />
-        <Weight
-          handleChange={handleChange}
-          weight={pt.weight}
-          state={pt}
-          setPt={setPt}
-        />
+        <Weight handleChange={handleChange} />
         <Height handleChange={handleChange} height={pt.height} />
         <Gender handleChange={handleChange} gender={pt.gender} />
       </Flex>
 
-      {/* {state.weight > 20 && state.height > 50 && state.age > 10 && (
-        <DosingWeight {...{ setState, state }} />
-      )} */}
+      {pt.weight > 20 && pt.height > 50 && pt.age > 10 && (
+        <DosingWt pt={pt} setPt={setPt} />
+      )}
     </Flex>
   );
 }

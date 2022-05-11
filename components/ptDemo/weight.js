@@ -8,10 +8,10 @@ import {
   InputRightElement,
 } from "@chakra-ui/react";
 
-export default function Weight({ handleChange, weight }) {
+export default function Weight({ handleChange }) {
   return (
     <Box>
-      <FormControl isInvalid={weight < 20 || weight > 500}>
+      <FormControl isInvalid={actualWt < 20 || actualWt > 500}>
         <FormLabel htmlFor="weight" color="gray">
           weight
         </FormLabel>
