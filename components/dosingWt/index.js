@@ -5,7 +5,7 @@ import WtCard from "@/components/dosingWt/wtCard";
 import MetricCard from "@/components/dosingWt/metricCard";
 
 export default function DosingWt({ pt, setPt }) {
-  const { gender, height, weight } = pt;
+  const { age, gender, height, scr, weight } = pt;
   const heightCm = height * 2.54;
   const heightMeters = heightCm / 100;
   const genderFactor = gender === "male" ? 50 : 45.5;
@@ -20,11 +20,22 @@ export default function DosingWt({ pt, setPt }) {
       : percentIdeal > 119
       ? { renalWt: adjustedWt, renalWtType: "adjusted" }
       : { renalWt: idealWt, renalWtType: "ideal" };
+  const genderFactorCrcl = pt.gender === "male" ? 1 : 0.85;
+  const crcl = formatNum(
+    ((140 - age) * renalWt.renalWt * genderFactorCrcl) / (72 * scr),
+    2
+  );
 
   useEffect(() => {
-    setPt({ ...pt, idealWt: idealWt, adjustedWt: adjustedWt, ...renalWt });
+    setPt({
+      ...pt,
+      idealWt: idealWt,
+      adjustedWt: adjustedWt,
+      crcl: crcl,
+      ...renalWt,
+    });
     // eslint-disable-next-line
-  }, [percentIdeal]);
+  }, [age, scr, percentIdeal]);
 
   const weights = [
     {
@@ -96,7 +107,7 @@ export default function DosingWt({ pt, setPt }) {
           />
         ))}
       </Flex>
-      <Flex gap="0.7em" justifyContent="center">
+      <Flex gap="1.3em" justifyContent="center">
         {metrics.map((m) => (
           <MetricCard
             key={m.title}

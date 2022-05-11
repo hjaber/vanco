@@ -24,7 +24,12 @@ export default function Gender({ handleChange, gender }) {
           size="sm"
           value={gender}
         >
-          <Flex direction={{ base: "row", md: "column" }} gap="0.5em">
+          <Flex
+            direction={{ base: "row", md: "column" }}
+            alignItems="center"
+            justifyContent="center"
+            gap="0.5em"
+          >
             <Radio value="male" spacing="0.3em">
               male
             </Radio>
