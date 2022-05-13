@@ -38,7 +38,15 @@ export default function WtCard({ pt, setPt, title, value }) {
 
       {/* scr > 0.067 comes from the IDMS to conventional SCr conversion, min scr value = 0.067 */}
       {pt.scr > 0.067 && (
-        <Text>
+        <Text
+          color={
+            displayCrcl > 50
+              ? "inverseBgToken"
+              : displayCrcl < 30
+              ? "redErrorToken"
+              : "yellowWarningToken"
+          }
+        >
           {displayCrcl}
           <span fontSize="0.6em">
             &nbsp;<sup>mL</sup>&frasl;

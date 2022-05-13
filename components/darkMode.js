@@ -1,15 +1,17 @@
-import { Button, useColorMode } from "@chakra-ui/react";
+import { Text, useColorMode } from "@chakra-ui/react";
 
 export default function DarkMode() {
-  const { colorMode, toggleColorMode } = useColorMode();
+  const { toggleColorMode } = useColorMode();
   return (
-    <Button
+    <Text
       onClick={toggleColorMode}
-      variant="outline"
-      size="xs"
-      boxShadow="md"
+      //variant="outline"
+      //size="xs"
+      //boxShadow="md"
+      fontSize="2xl"
+      cursor="pointer"
     >
-      {colorMode === "light" ? "dark" : "light"}
-    </Button>
+      &#9788;
+    </Text>
   );
 }

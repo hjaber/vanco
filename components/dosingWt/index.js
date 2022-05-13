@@ -59,12 +59,12 @@ export default function DosingWt({ pt, setPt }) {
       unit: "%",
       color:
         percentIdeal > 119
-          ? "red.600"
+          ? "redErrorToken"
           : percentIdeal > 114
-          ? "yellow.500"
+          ? "yellowWarningToken"
           : percentIdeal < 100
-          ? "red.600"
-          : "gray",
+          ? "redErrorToken"
+          : "inverseBgToken",
     },
     {
       title: "bmi",
@@ -76,12 +76,12 @@ export default function DosingWt({ pt, setPt }) {
       ),
       color:
         bmi > 40
-          ? "red.600"
+          ? "redErrorToken"
           : bmi > 35
-          ? "yellow.500"
+          ? "yellowWarningToken"
           : bmi < 18.6
-          ? "red.600"
-          : "gray",
+          ? "redErrorToken"
+          : "inverseBgToken",
     },
     {
       title: "bsa",
@@ -92,6 +92,7 @@ export default function DosingWt({ pt, setPt }) {
           <sup>2</sup>
         </span>
       ),
+      color: "",
     },
   ];
   return (

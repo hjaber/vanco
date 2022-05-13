@@ -1,4 +1,4 @@
-import { Flex } from "@chakra-ui/react";
+import { Button, Flex } from "@chakra-ui/react";
 import Age from "@/components/ptDemo/age";
 import Creatinine from "@/components/ptDemo/creatinine";
 import Weight from "@/components/ptDemo/weight";
@@ -28,6 +28,19 @@ export default function PatientInfo({ handleChange, pt, setPt }) {
         <Gender handleChange={handleChange} gender={pt.gender} />
         {/* </SimpleGrid> */}
       </Flex>
+
+      <Button
+        variant="outline"
+        size="xs"
+        type="reset"
+        onClick={() => {
+          setPt({ gender: "male" });
+        }}
+        boxShadow="md"
+        m="auto"
+      >
+        reset
+      </Button>
 
       {pt.weight > 20 && pt.height > 50 && pt.age > 10 && (
         <DosingWt pt={pt} setPt={setPt} />

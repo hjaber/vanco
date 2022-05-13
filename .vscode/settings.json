@@ -1,5 +1,5 @@
 {
-  "cSpell.words": ["crcl", "creatnine", "frasl", "IDMS", "Vanco"],
+  "cSpell.words": ["crcl", "creatnine", "frasl", "IDMS", "Vanco", "Vancomycin"],
   //hide node_modules folder
   "files.exclude": {
     "**/node_modules": true

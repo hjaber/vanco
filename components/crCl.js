@@ -18,7 +18,7 @@ export default function CrCl({ pt, weight }) {
   //   }, [age, renalWt]);
 
   return (
-    <Text color={crcl < 30 && "yellow.500"}>
+    <Text color={crcl < 30 && "yellowWarningToken"}>
       {displayCrcl}
       <span fontSize="0.6em">
         &nbsp;<sup>mL</sup>&frasl;

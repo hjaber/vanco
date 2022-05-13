@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { Flex, Heading } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import Home from "@/components/home";
 
 export default function Index() {
@@ -11,9 +11,6 @@ export default function Index() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Flex direction="column" gap="1em" p={6}>
-        <Heading as="h1" size="4xl" textAlign="center">
-          calc
-        </Heading>
         <Home />
       </Flex>
     </>

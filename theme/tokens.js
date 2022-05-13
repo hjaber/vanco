@@ -4,7 +4,7 @@ export const tokens = {
       default: "white",
       _dark: "black",
     },
-    inverseToken: {
+    inverseBgToken: {
       default: "black",
       _dark: "white",
     },
@@ -20,13 +20,13 @@ export const tokens = {
       default: "gray.300",
       _dark: "gray.500",
     },
-    pinkHoverToken: {
-      default: "pink.600",
-      _dark: "pink.400",
+    redErrorToken: {
+      default: "red.600",
+      _dark: "red.400",
     },
-    changeThemeToken: {
-      default: "blue.600",
-      _dark: "orange.400",
+    yellowWarningToken: {
+      default: "yellow.600",
+      _dark: "yellow.400",
     },
   },
 };
