@@ -31,7 +31,7 @@ export default function Height({ handleChange, height }) {
           />
           <InputRightElement>in</InputRightElement>
         </InputGroup>
-        <FormErrorMessage>confirm height</FormErrorMessage>
+        <FormErrorMessage>confirm</FormErrorMessage>
       </FormControl>
     </Box>
   );

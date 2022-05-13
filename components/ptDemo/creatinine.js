@@ -42,7 +42,7 @@ export default function Creatinine({ age, handleChange, scr }) {
         {ageFactor && (
           <FormHelperText fontSize="0.7em">consider rounding up</FormHelperText>
         )}
-        <FormErrorMessage>confirm SCr</FormErrorMessage>
+        <FormErrorMessage>confirm</FormErrorMessage>
       </FormControl>
     </Box>
   );

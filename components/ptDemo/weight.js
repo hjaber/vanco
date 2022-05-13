@@ -25,13 +25,13 @@ export default function Weight({ weight, handleChange }) {
               handleChange(e.target.name, e.target.valueAsNumber);
             }}
             variant="flushed"
-            placeholder="70"
+            placeholder="73"
             min="20"
             max="500"
           />
           <InputRightElement>kg</InputRightElement>
         </InputGroup>
-        <FormErrorMessage>confirm weight</FormErrorMessage>
+        <FormErrorMessage>confirm</FormErrorMessage>
       </FormControl>
     </Box>
   );

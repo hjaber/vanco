@@ -27,7 +27,7 @@ export default function Age({ age, handleChange }) {
           variant="flushed"
           autoFocus
         />
-        <FormErrorMessage>confirm age</FormErrorMessage>
+        <FormErrorMessage>confirm</FormErrorMessage>
       </FormControl>
     </Box>
   );

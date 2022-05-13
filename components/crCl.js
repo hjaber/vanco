@@ -1,5 +1,5 @@
 import { Text } from "@chakra-ui/react";
-import { formatNum } from "@/lib/helper"; //
+import { formatNum } from "@/lib/helper";
 
 export default function CrCl({ pt, weight }) {
   const { age, gender, renalWt, scr } = pt;

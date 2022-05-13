@@ -1,4 +1,4 @@
-import { Flex, SimpleGrid } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import Age from "@/components/ptDemo/age";
 import Creatinine from "@/components/ptDemo/creatinine";
 import Weight from "@/components/ptDemo/weight";
@@ -9,24 +9,25 @@ import DosingWt from "@/components/dosingWt/index";
 export default function PatientInfo({ handleChange, pt, setPt }) {
   return (
     <Flex direction="column" gap="0.5em">
-      {/* <Flex
+      <Flex
         gap="1em"
         //direction={{ base: "column", md: "row" }}
         flexWrap="wrap"
         justifyContent="space-around"
-      > */}
-      <SimpleGrid
+        alignItems="center"
+      >
+        {/* <SimpleGrid
         columns={{ base: 3, md: 5 }}
         spacing="1em"
         justifyContent="center"
-      >
+      > */}
         <Age handleChange={handleChange} age={pt.age} />
         <Creatinine handleChange={handleChange} scr={pt.scr} age={pt.age} />
         <Weight handleChange={handleChange} weight={pt.weight} />
         <Height handleChange={handleChange} height={pt.height} />
         <Gender handleChange={handleChange} gender={pt.gender} />
-      </SimpleGrid>
-      {/* </Flex> */}
+        {/* </SimpleGrid> */}
+      </Flex>
 
       {pt.weight > 20 && pt.height > 50 && pt.age > 10 && (
         <DosingWt pt={pt} setPt={setPt} />

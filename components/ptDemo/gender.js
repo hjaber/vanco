@@ -16,7 +16,7 @@ export default function Gender({ handleChange, gender }) {
         </FormLabel>
         <RadioGroup
           name="gender"
-          //chakra Radiogroup does not contain full event object, Radio does
+          //chakra radio group does not contain full event object, Radio does
           onChange={(e) => {
             handleChange("gender", e);
           }}
