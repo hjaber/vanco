@@ -15,7 +15,7 @@ export default function Creatinine({ age, handleChange, scr }) {
   return (
     <Box>
       <FormControl isInvalid={scr < 0.01 || scr > 20}>
-        <FormLabel htmlFor="scr" color="gray" textAlign="center">
+        <FormLabel htmlFor="scr" color="grayTextToken" textAlign="center">
           creatnine
         </FormLabel>
         <InputGroup size="xs">

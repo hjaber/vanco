@@ -8,9 +8,7 @@ export default function WtCard({ pt, setPt, title, value }) {
     2
   );
 
-  const displayCrcl = Math.round(
-    ((140 - pt.age) * value * genderFactor) / (72 * pt.scr)
-  );
+  const displayCrcl = Math.round(crcl);
 
   return (
     <Flex
@@ -20,17 +18,20 @@ export default function WtCard({ pt, setPt, title, value }) {
       direction="column"
       gap="0.2em"
       alignItems="center"
-      borderRadius="md"
-      bgColor={pt.renalWt === value ? "gray.100" : "white"}
+      borderRadius="lg"
+      borderWidth="3px"
+      borderColor="transparent"
+      bgColor={pt.renalWt === value ? "grayBgToken" : "bgToken"}
       _hover={{
-        bgColor: "gray.200",
         transition: "0.1s ease-in",
         cursor: "pointer",
+        borderWidth: "3px",
+        borderColor: "grayHoverToken",
       }}
       transition="0.5s ease-in" /* hover off transition */
-      p={1} /* give hover background space */
+      p={1} /* give borderRadius background extra space */
     >
-      <Text color="gray" fontSize="0.8em">
+      <Text color="grayTextToken" fontSize="0.8em">
         {title}
       </Text>
       <Text>{value} kg</Text>

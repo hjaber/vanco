@@ -11,7 +11,7 @@ export default function Gender({ handleChange, gender }) {
   return (
     <Box>
       <FormControl id="gender" name="gender">
-        <FormLabel htmlFor="gender" color="gray" textAlign="center">
+        <FormLabel htmlFor="gender" color="grayTextToken" textAlign="center">
           gender
         </FormLabel>
         <RadioGroup
@@ -26,7 +26,6 @@ export default function Gender({ handleChange, gender }) {
         >
           <Flex
             direction={{ base: "row", md: "column" }}
-            alignItems="center"
             justifyContent="center"
             gap="0.5em"
           >
