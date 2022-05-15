@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Box, Flex } from "@chakra-ui/react";
 import PtDemo from "@/components/ptDemo/index";
 import dynamic from "next/dynamic";
-import Vancomycin from "@/components/vanco/index";
 
 export default function Home() {
   const DarkMode = dynamic(() => import("@/components/darkMode"));
@@ -24,7 +23,6 @@ export default function Home() {
             <DarkMode />
           </Box>
           <PtDemo handleChange={handleChange} pt={pt} setPt={setPt} />
-          {pt.crcl && <Vancomycin pt={pt} setPt={setPt} />}
         </Flex>
       </form>
     </Box>

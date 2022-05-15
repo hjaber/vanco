@@ -1,14 +1,19 @@
-import { useState } from "react";
-import { Flex, Text } from "@chakra-ui/react";
+import { Flex, SimpleGrid, Text } from "@chakra-ui/react";
 import CrCl from "@/components/dosingWt/crCl";
-import Vancomycin from "@/components/vanco/index";
+import MetricCard from "@/components/dosingWt/metricCard";
+import PkCard from "@/components/dosingWt/pkCard";
 
-export default function WtCard({ pt, renalWt, weights }) {
-  const [crclWt, setCrclWt] = useState(renalWt);
-
+export default function WtCard({
+  metrics,
+  pks,
+  pt,
+  weights,
+  crclWt,
+  setCrclWt,
+}) {
   return (
     <Flex gap="1em" direction="column">
-      <Flex gap="0.7em" justifyContent="center">
+      <SimpleGrid columns={3} spacing="0.8em" m="auto">
         {weights.map((wt) => (
           <Flex
             key={wt.type}
@@ -43,9 +48,29 @@ export default function WtCard({ pt, renalWt, weights }) {
             {pt.scr > 0.067 && <CrCl crcl={wt.crcl} />}
           </Flex>
         ))}
-      </Flex>
-      {/* TODO move vanco up to parent component and destructure index of dosingWt*/}
-      <Vancomycin age={pt.age} weight={pt.weight} crcl={crclWt.crcl} />
+
+        {metrics.map((m) => (
+          <MetricCard
+            key={m.title}
+            color={m.color}
+            unit={m.unit}
+            title={m.title}
+            value={m.value}
+          />
+        ))}
+        {pt.scr > 0.067 &&
+          pks.map((pk) => (
+            <PkCard
+              key={pk.type}
+              display={pk.display}
+              type={pk.type}
+              unit={pk.unit}
+            />
+          ))}
+      </SimpleGrid>
+      {/* {pt.scr > 0.067 && (
+        <Vancomycin age={pt.age} weight={pt.weight} crcl={crclWt.crcl} />
+      )} */}
     </Flex>
   );
 }

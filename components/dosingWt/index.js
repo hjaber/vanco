@@ -1,9 +1,9 @@
-import { Flex } from "@chakra-ui/react";
+import { useState } from "react";
 import { formatNum } from "@/lib/helper";
 import WtCard from "@/components/dosingWt/wtCard";
-import MetricCard from "@/components/dosingWt/metricCard";
 
 export default function DosingWt({ pt }) {
+  // TODO split DosingWt component up
   const { age, gender, height, scr, weight } = pt;
   const heightCm = height * 2.54;
   const heightMeters = heightCm / 100;
@@ -24,6 +24,41 @@ export default function DosingWt({ pt }) {
       : percentIdeal > 119
       ? { value: adjustedWt, type: "adjusted", crcl: crcl(adjustedWt) }
       : { value: idealWt, type: "ideal", crcl: crcl(idealWt) };
+  const [crclWt, setCrclWt] = useState(renalWt);
+
+  const vancoCl = formatNum(0.06 * (0.705 * crclWt.crcl + 4), 4);
+  const vd = formatNum(0.29 * age + 0.33 * weight + 11, 4);
+  const ke = formatNum(vancoCl / vd, 4);
+  const halfLife = formatNum(0.693 / ke);
+
+  const pks = [
+    {
+      type: "vd",
+      value: vd,
+      unit: (
+        <span fontSize="0.6em">
+          L ({formatNum(vd / weight, 2)} <sup>L</sup>&frasl;<sub>kg</sub>)
+        </span>
+      ),
+      display: Math.round(vd),
+    },
+    {
+      type: "ke",
+      value: ke,
+      unit: (
+        <span fontSize="0.6em">
+          &nbsp;hr<sup>-1</sup>
+        </span>
+      ),
+      display: formatNum(ke, 3),
+    },
+    {
+      type: "half life",
+      value: halfLife,
+      unit: "hours",
+      display: formatNum(halfLife, 2),
+    },
+  ];
 
   const weights = [
     {
@@ -86,21 +121,13 @@ export default function DosingWt({ pt }) {
     },
   ];
   return (
-    <Flex direction="column" gap="0.8em">
-      <WtCard pt={pt} renalWt={renalWt} weights={weights} />
-
-      <Flex gap="1.3em" justifyContent="center">
-        {metrics.map((m) => (
-          <MetricCard
-            key={m.title}
-            color={m.color}
-            unit={m.unit}
-            title={m.title}
-            value={m.value}
-            renalWt={renalWt}
-          />
-        ))}
-      </Flex>
-    </Flex>
+    <WtCard
+      pt={pt}
+      weights={weights}
+      metrics={metrics}
+      pks={pks}
+      crclWt={crclWt}
+      setCrclWt={setCrclWt}
+    />
   );
 }

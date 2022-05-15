@@ -8,7 +8,7 @@ import DosingWt from "@/components/dosingWt/index";
 
 export default function PatientInfo({ handleChange, pt, setPt }) {
   return (
-    <Flex direction="column" gap="0.5em">
+    <Flex direction="column" gap="1em">
       <Flex
         gap="1em"
         flexWrap="wrap"
@@ -36,8 +36,8 @@ export default function PatientInfo({ handleChange, pt, setPt }) {
       </Button>
 
       {pt.weight > 20 && pt.height > 50 && pt.age > 10 && (
-        //key given to DosingWt to reset useState(renalWt) on each render
-        <DosingWt pt={pt} key={pt.gender} />
+        //key given to DosingWt to reset useState(renalWt) on each change/render of gender/scr
+        <DosingWt pt={pt} key={pt.scr + pt.gender} />
       )}
     </Flex>
   );

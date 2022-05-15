@@ -5,7 +5,7 @@ export default function Pk({ age, crcl, weight }) {
   const vancoCl = formatNum(0.06 * (0.705 * crcl + 4), 4);
   const vd = formatNum(0.29 * age + 0.33 * weight + 11, 4);
   const ke = formatNum(vancoCl / vd, 4);
-  const halfLife = formatNum(0.693 / ke);
+  const halfLife = formatNum(0.693 / ke, 4);
 
   return (
     <Flex gap="1em" fontSize="0.8em" justifyContent="center">
