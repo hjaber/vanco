@@ -2,7 +2,7 @@ import {
   Box,
   FormControl,
   FormLabel,
-  FormErrorMessage,
+  //FormErrorMessage,
   Input,
   InputGroup,
   InputRightElement,
@@ -31,7 +31,7 @@ export default function Height({ handleChange, height }) {
           />
           <InputRightElement>in</InputRightElement>
         </InputGroup>
-        <FormErrorMessage>confirm</FormErrorMessage>
+        {/* <FormErrorMessage>confirm</FormErrorMessage> */}
       </FormControl>
     </Box>
   );

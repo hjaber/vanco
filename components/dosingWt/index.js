@@ -1,10 +1,9 @@
-import { useEffect } from "react";
 import { Flex } from "@chakra-ui/react";
 import { formatNum } from "@/lib/helper";
 import WtCard from "@/components/dosingWt/wtCard";
 import MetricCard from "@/components/dosingWt/metricCard";
 
-export default function DosingWt({ pt, setPt }) {
+export default function DosingWt({ pt }) {
   const { age, gender, height, scr, weight } = pt;
   const heightCm = height * 2.54;
   const heightMeters = heightCm / 100;
@@ -14,41 +13,33 @@ export default function DosingWt({ pt, setPt }) {
   const percentIdeal = Math.round(((weight - idealWt) / idealWt) * 100) + 100;
   const bmi = formatNum(weight / Math.pow(heightMeters, 2), 2);
   const bsa = formatNum(Math.sqrt((heightCm * weight) / 3600, 2), 2);
+
+  const genderFactorCrcl = pt.gender === "male" ? 1 : 0.85;
+  const crcl = (wt) =>
+    formatNum(((140 - age) * wt * genderFactorCrcl) / (72 * scr), 2);
+
   const renalWt =
     weight < idealWt
-      ? { renalWt: weight, renalWtType: "actual" }
+      ? { value: weight, type: "actual", crcl: crcl(weight) }
       : percentIdeal > 119
-      ? { renalWt: adjustedWt, renalWtType: "adjusted" }
-      : { renalWt: idealWt, renalWtType: "ideal" };
-  const genderFactorCrcl = pt.gender === "male" ? 1 : 0.85;
-  const crcl = formatNum(
-    ((140 - age) * renalWt.renalWt * genderFactorCrcl) / (72 * scr),
-    2
-  );
-
-  useEffect(() => {
-    setPt({
-      ...pt,
-      idealWt: idealWt,
-      adjustedWt: adjustedWt,
-      crcl: crcl,
-      ...renalWt,
-    });
-    // eslint-disable-next-line
-  }, [age, scr, percentIdeal]);
+      ? { value: adjustedWt, type: "adjusted", crcl: crcl(adjustedWt) }
+      : { value: idealWt, type: "ideal", crcl: crcl(idealWt) };
 
   const weights = [
     {
-      title: "actual",
+      type: "actual",
       value: weight,
+      crcl: crcl(weight),
     },
     {
-      title: "ideal",
+      type: "ideal",
       value: idealWt,
+      crcl: crcl(idealWt),
     },
     {
-      title: "adjusted",
+      type: "adjusted",
       value: adjustedWt,
+      crcl: crcl(adjustedWt),
     },
   ];
 
@@ -92,22 +83,12 @@ export default function DosingWt({ pt, setPt }) {
           <sup>2</sup>
         </span>
       ),
-      color: "",
     },
   ];
   return (
     <Flex direction="column" gap="0.8em">
-      <Flex gap="0.7em" justifyContent="center">
-        {weights.map((wt) => (
-          <WtCard
-            key={wt.title}
-            pt={pt}
-            setPt={setPt}
-            title={wt.title}
-            value={wt.value}
-          />
-        ))}
-      </Flex>
+      <WtCard pt={pt} renalWt={renalWt} weights={weights} />
+
       <Flex gap="1.3em" justifyContent="center">
         {metrics.map((m) => (
           <MetricCard
@@ -116,6 +97,7 @@ export default function DosingWt({ pt, setPt }) {
             unit={m.unit}
             title={m.title}
             value={m.value}
+            renalWt={renalWt}
           />
         ))}
       </Flex>

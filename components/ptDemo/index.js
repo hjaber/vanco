@@ -11,22 +11,15 @@ export default function PatientInfo({ handleChange, pt, setPt }) {
     <Flex direction="column" gap="0.5em">
       <Flex
         gap="1em"
-        //direction={{ base: "column", md: "row" }}
         flexWrap="wrap"
         justifyContent="space-around"
         alignItems="center"
       >
-        {/* <SimpleGrid
-        columns={{ base: 3, md: 5 }}
-        spacing="1em"
-        justifyContent="center"
-      > */}
         <Age handleChange={handleChange} age={pt.age} />
         <Creatinine handleChange={handleChange} scr={pt.scr} age={pt.age} />
         <Weight handleChange={handleChange} weight={pt.weight} />
         <Height handleChange={handleChange} height={pt.height} />
         <Gender handleChange={handleChange} gender={pt.gender} />
-        {/* </SimpleGrid> */}
       </Flex>
 
       <Button
@@ -43,7 +36,8 @@ export default function PatientInfo({ handleChange, pt, setPt }) {
       </Button>
 
       {pt.weight > 20 && pt.height > 50 && pt.age > 10 && (
-        <DosingWt pt={pt} setPt={setPt} />
+        //key given to DosingWt to reset useState(renalWt) on each render
+        <DosingWt pt={pt} key={pt.gender} />
       )}
     </Flex>
   );

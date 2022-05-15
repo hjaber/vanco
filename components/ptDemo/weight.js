@@ -1,7 +1,7 @@
 import {
   Box,
   FormControl,
-  FormErrorMessage,
+  // FormErrorMessage,
   FormLabel,
   Input,
   InputGroup,
@@ -31,7 +31,7 @@ export default function Weight({ weight, handleChange }) {
           />
           <InputRightElement>kg</InputRightElement>
         </InputGroup>
-        <FormErrorMessage>confirm</FormErrorMessage>
+        {/* <FormErrorMessage>confirm</FormErrorMessage> */}
       </FormControl>
     </Box>
   );

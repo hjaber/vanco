@@ -2,7 +2,7 @@ import {
   Box,
   FormControl,
   FormLabel,
-  FormErrorMessage,
+  //FormErrorMessage,
   Input,
 } from "@chakra-ui/react";
 
@@ -27,7 +27,7 @@ export default function Age({ age, handleChange }) {
           variant="flushed"
           autoFocus
         />
-        <FormErrorMessage>confirm</FormErrorMessage>
+        {/* <FormErrorMessage>confirm</FormErrorMessage> */}
       </FormControl>
     </Box>
   );
