@@ -5,6 +5,7 @@ import Weight from "@/components/ptDemo/weight";
 import Height from "@/components/ptDemo/height";
 import Gender from "@/components/ptDemo/gender";
 import DosingWt from "@/components/dosingWt/index";
+import VancoToggle from "@/components/ptDemo/vancoToggle";
 
 export default function PatientInfo({ handleChange, pt, setPt }) {
   return (
@@ -20,6 +21,7 @@ export default function PatientInfo({ handleChange, pt, setPt }) {
         <Weight handleChange={handleChange} weight={pt.weight} />
         <Height handleChange={handleChange} height={pt.height} />
         <Gender handleChange={handleChange} gender={pt.gender} />
+        <VancoToggle handleChange={handleChange} vancomycin={pt.vancomycin} />
       </Flex>
 
       <Button
@@ -27,7 +29,7 @@ export default function PatientInfo({ handleChange, pt, setPt }) {
         size="xs"
         type="reset"
         onClick={() => {
-          setPt({ gender: "male" });
+          setPt({ gender: "male", vancomycin: false });
         }}
         boxShadow="md"
         m="auto"

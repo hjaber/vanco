@@ -28,5 +28,9 @@ export const tokens = {
       default: "yellow.600",
       _dark: "yellow.400",
     },
+    greenTextToken: {
+      default: "green.500",
+      _dark: "green.300",
+    },
   },
 };

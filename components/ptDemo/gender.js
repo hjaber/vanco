@@ -25,7 +25,7 @@ export default function Gender({ handleChange, gender }) {
           value={gender}
         >
           <Flex
-            direction={{ base: "row", md: "column" }}
+            // direction={{ base: "row", md: "column" }}
             justifyContent="center"
             gap="0.5em"
           >

@@ -1,5 +1,4 @@
-import Pk from "@/components/vanco/pk";
-
-export default function Vancomycin({ age, weight, crcl }) {
-  return <Pk age={age} crcl={crcl} weight={weight} />;
+import Levels from "@/components/vanco/levels";
+export default function Vancomycin({ ke, vancoCl, vd }) {
+  return <Levels ke={ke} vancoCl={vancoCl} vd={vd} />;
 }
