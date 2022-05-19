@@ -1,6 +1,5 @@
 import { useState } from "react";
 import {
-  Box,
   Flex,
   FormControl,
   FormLabel,
@@ -73,7 +72,7 @@ export default function Note({ dose, freq, infusionTime }) {
   };
 
   return (
-    <Box>
+    <Flex direction="column" gap="0.5em">
       <Flex gap="1em">
         <FormControl>
           <FormLabel
@@ -90,7 +89,7 @@ export default function Note({ dose, freq, infusionTime }) {
             name="firstDose"
             size="xs"
             variant="flushed"
-            w="sm"
+
             //defaultValue={firstDose}
             //value={firstDose}
             //"2017-06-01T08:30"
@@ -121,14 +120,17 @@ export default function Note({ dose, freq, infusionTime }) {
         </FormControl>
       </Flex>
       <Text>{new Intl.DateTimeFormat("en-US", options).format(firstDose)}</Text>
-      <Text>
-        1. Initiated vancomycin {dose}mg IV Q{freq}H at {formattedFirstDose}
-      </Text>
-      <Text>
-        2. Peak ordered {getPeak(lvl.peak)} (1 hour after end of {lvl.peakStr}).
-        Trough ordered {getTrough(lvl.trough)} (30 min before {lvl.troughStr}).
-      </Text>
-    </Box>
+      <Flex direction="column">
+        <Text>
+          1. Initiated vancomycin {dose}mg IV Q{freq}H at {formattedFirstDose}
+        </Text>
+        <Text>
+          2. Peak ordered {getPeak(lvl.peak)} (1 hour after end of {lvl.peakStr}
+          ). Trough ordered {getTrough(lvl.trough)} (30 min before{" "}
+          {lvl.troughStr}).
+        </Text>
+      </Flex>
+    </Flex>
   );
 }
 
