@@ -80,7 +80,7 @@ export default function Note({ dose, freq, infusionTime }) {
             color="grayTextToken"
             textAlign="center"
           >
-            First Dose Given
+            first dose given
           </FormLabel>
           <Input
             type="datetime-local"
@@ -98,7 +98,7 @@ export default function Note({ dose, freq, infusionTime }) {
 
         <FormControl id="lvl" name="lvl">
           <FormLabel htmlFor="lvl" color="grayTextToken" textAlign="center">
-            levels
+            peak/trough
           </FormLabel>
           <RadioGroup
             name="lvl"
@@ -119,10 +119,9 @@ export default function Note({ dose, freq, infusionTime }) {
           </RadioGroup>
         </FormControl>
       </Flex>
-      <Text>{new Intl.DateTimeFormat("en-US", options).format(firstDose)}</Text>
       <Flex direction="column">
         <Text>
-          1. Initiated vancomycin {dose}mg IV Q{freq}H at {formattedFirstDose}
+          1. Initiated vancomycin {dose}mg IV Q{freq}H on {formattedFirstDose}
         </Text>
         <Text>
           2. Peak ordered {getPeak(lvl.peak)} (1 hour after end of {lvl.peakStr}

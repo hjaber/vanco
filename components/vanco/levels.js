@@ -77,7 +77,7 @@ export default function Levels({ ke, vancoCl, vd }) {
           dose={selectedDose.dose}
           freq={selectedDose.freq}
           infusionTime={selectedDose.infusionTime}
-          //added key so default lvl timing changes from 3/4 & 4/5
+          //added key so default lvl timing changes from 3/4 & 4/5 depending on freq selected
           key={selectedDose.dose + selectedDose.freq}
         />
       )}
