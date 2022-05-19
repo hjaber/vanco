@@ -8,8 +8,13 @@ export default function Levels({ ke, vancoCl, vd }) {
 
   //   const labels = ["dose", "freq", "peak", "trough", "auc"];
 
-  const handleClick = (dose, freq, i) => {
-    setSelectedDose({ dose: dose, freq: freq, doseIndex: i });
+  const handleClick = (d, i) => {
+    setSelectedDose({
+      dose: d.dose,
+      freq: d.freq,
+      infusionTime: d.infusionTime,
+      doseIndex: i,
+    });
   };
 
   const allDoses = doses.map((d) => {
@@ -23,33 +28,15 @@ export default function Levels({ ke, vancoCl, vd }) {
     const cMin = Math.round(
       cPeak * Math.pow(Math.E, -ke * (freq - infusionTime))
     );
-    return { dose: dose, freq: freq, cPeak: cPeak, cMin: cMin, auc: auc };
+    return {
+      dose: dose,
+      freq: freq,
+      cPeak: cPeak,
+      cMin: cMin,
+      auc: auc,
+      infusionTime: infusionTime,
+    };
   });
-
-  //   for (let i = 0; i < doses.length; i++) {
-  //     const d = doses[i];
-  //     const { dose, infusionTime, freq } = d;
-  //     let goalDoses = [];
-  //     const dailyDose = (dose * 24) / freq;
-  //     const auc = Math.round(dailyDose / vancoCl);
-  //     const cPeak = Math.round(
-  //       (dose * (1 - Math.pow(Math.E, -ke * infusionTime))) /
-  //         (ke * vd * infusionTime * (1 - Math.pow(Math.E, -ke * freq)))
-  //     );
-  //     const cMin = Math.round(
-  //       cPeak * Math.pow(Math.E, -ke * (freq - infusionTime))
-  //     );
-  //     if (auc > 300 && auc < 700) {
-  //       goalDoses.push({
-  //         dose: dose,
-  //         freq: freq,
-  //         cPeak: cPeak,
-  //         cMin: cMin,
-  //         auc: auc,
-  //       });
-  //     }
-  //     return goalDoses;
-  //   }
 
   const goalDoses = allDoses.filter((a) => a.auc > 300 && a.auc < 700);
 
@@ -65,9 +52,9 @@ export default function Levels({ ke, vancoCl, vd }) {
       {goalDoses.map((d, i) => (
         <Flex
           key={i}
-          gap="1em"
+          gap="1.5em"
           alignItems="center"
-          onClick={() => handleClick(d.dose, d.freq, i)}
+          onClick={() => handleClick(d, i)}
           borderRadius="lg"
           bgColor={selectedDose?.doseIndex === i ? "grayBgToken" : "bgToken"}
           _hover={{
@@ -86,7 +73,13 @@ export default function Levels({ ke, vancoCl, vd }) {
         </Flex>
       ))}
       {selectedDose && (
-        <Note dose={selectedDose.dose} freq={selectedDose.freq} />
+        <Note
+          dose={selectedDose.dose}
+          freq={selectedDose.freq}
+          infusionTime={selectedDose.infusionTime}
+          //added key so default lvl timing changes from 3/4 & 4/5
+          key={selectedDose.dose + selectedDose.freq}
+        />
       )}
     </Flex>
   );

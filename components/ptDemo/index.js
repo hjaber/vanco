@@ -39,7 +39,7 @@ export default function PatientInfo({ handleChange, pt, setPt }) {
 
       {pt.weight > 20 && pt.height > 50 && pt.age > 10 && (
         //key given to DosingWt to reset useState(renalWt) on each change/render of gender/scr
-        <DosingWt pt={pt} key={pt.scr + pt.gender} />
+        <DosingWt pt={pt} key={pt.gender + pt.scr} />
       )}
     </Flex>
   );

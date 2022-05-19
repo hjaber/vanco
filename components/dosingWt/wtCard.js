@@ -32,7 +32,7 @@ export default function NewWtCard({
         borderWidth: "3px",
         borderColor: "grayHoverToken",
       }}
-      transition="0.5s ease-in" /* hover off transition */
+      transition="0.3s ease-in" /* hover off transition */
       p={1} /* give borderRadius background extra space */
     >
       <Text color="grayTextToken" fontSize="0.8em">
