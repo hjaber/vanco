@@ -160,7 +160,7 @@ export default function DosingWt({ pt }) {
           ))}
       </SimpleGrid>
       {pt.scr > 0.067 && pt.vancomycin && (
-        <Vancomycin ke={ke} vancoCl={vancoCl} vd={vd} />
+        <Vancomycin ke={ke} vancoCl={vancoCl} vd={vd} halfLife={halfLife} />
       )}
     </Flex>
   );

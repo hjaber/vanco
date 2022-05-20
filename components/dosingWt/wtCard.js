@@ -26,6 +26,7 @@ export default function NewWtCard({
       borderWidth="3px"
       borderColor="transparent"
       bgColor={crclWt.type === type ? "grayBgToken" : "bgToken"}
+      boxShadow={crclWt.type === type && "md"}
       _hover={{
         transition: "0.1s ease-in",
         cursor: "pointer",

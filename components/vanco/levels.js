@@ -1,12 +1,21 @@
 import { useState } from "react";
-import { Flex, Text } from "@chakra-ui/react";
+import {
+  Flex,
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  TableContainer,
+} from "@chakra-ui/react";
 import { doses } from "@/components/vanco/doses";
 import Note from "@/components/vanco/note";
 
-export default function Levels({ ke, vancoCl, vd }) {
+export default function Levels({ ke, halfLife, vancoCl, vd }) {
   const [selectedDose, setSelectedDose] = useState(null);
 
-  //   const labels = ["dose", "freq", "peak", "trough", "auc"];
+  const labels = ["dose", "freq", "peak", "trough", "auc"];
 
   const handleClick = (d, i) => {
     setSelectedDose({
@@ -21,57 +30,86 @@ export default function Levels({ ke, vancoCl, vd }) {
     const { dose, infusionTime, freq } = d;
     const dailyDose = (dose * 24) / freq;
     const auc = Math.round(dailyDose / vancoCl);
-    const cPeak = Math.round(
+    const peak = Math.round(
       (dose * (1 - Math.pow(Math.E, -ke * infusionTime))) /
         (ke * vd * infusionTime * (1 - Math.pow(Math.E, -ke * freq)))
     );
-    const cMin = Math.round(
-      cPeak * Math.pow(Math.E, -ke * (freq - infusionTime))
+    const trough = Math.round(
+      peak * Math.pow(Math.E, -ke * (freq - infusionTime))
     );
     return {
       dose: dose,
       freq: freq,
-      cPeak: cPeak,
-      cMin: cMin,
+      peak: peak,
+      trough: trough,
       auc: auc,
       infusionTime: infusionTime,
     };
   });
 
-  const goalDoses = allDoses.filter((a) => a.auc > 300 && a.auc < 700);
+  const goalDoses = allDoses.filter(
+    (d) =>
+      d.auc > 300 &&
+      d.auc < 700 &&
+      d.freq > halfLife / 2 &&
+      d.trough < 22 &&
+      d.trough > 5
+  );
 
   return (
-    <Flex direction="column" gap="1em" alignItems="center" fontSize="0.8em">
-      <Flex gap="1em" color="grayTextToken">
-        <Text>dose</Text>
-        <Text>freq</Text>
-        <Text>peak</Text>
-        <Text>trough</Text>
-        <Text>auc</Text>
-      </Flex>
-      {goalDoses.map((d, i) => (
-        <Flex
-          key={i}
-          gap="1.5em"
-          alignItems="center"
-          onClick={() => handleClick(d, i)}
-          borderRadius="lg"
-          bgColor={selectedDose?.doseIndex === i ? "grayBgToken" : "bgToken"}
-          _hover={{
-            transition: "0.1s ease-in",
-            cursor: "pointer",
-            bgColor: "grayHoverToken",
-          }}
-          transition="0.5s ease-in" /* hover off transition */
-          px={1}
-        >
-          <Text>{d.dose}mg</Text>
-          <Text>Q{d.freq}</Text>
-          <Text>{d.cPeak}</Text>
-          <Text>{d.cMin}</Text>
-          <Text color={d.auc > 390 && d.auc < 610 && "green.500"}>{d.auc}</Text>
-        </Flex>
-      ))}
+    <Flex direction="column" gap="1em" alignItems="center">
+      <TableContainer>
+        <Table size="sm" variant="unstyled">
+          <Thead>
+            <Tr>
+              {labels.map((l) => (
+                <Th
+                  key={l}
+                  color="grayTextToken"
+                  textTransform="lowercase"
+                  fontSize="0.7rem"
+                  fontWeight="normal"
+                >
+                  {l}
+                </Th>
+              ))}
+            </Tr>
+          </Thead>
+          <Tbody>
+            {goalDoses.map((d, i) => (
+              <Tr
+                key={i}
+                onClick={() => handleClick(d, i)}
+                //borderRadius="lg"
+                bgColor={
+                  selectedDose?.doseIndex === i ? "grayBgToken" : "bgToken"
+                }
+                //boxShadow={selectedDose?.doseIndex === i && "md"}
+                _hover={{
+                  transition: "0.1s ease-in",
+                  cursor: "pointer",
+                  bgColor: "grayHoverToken",
+                }}
+                transition="0.3s ease-in" /* hover off transition */
+              >
+                <Td borderLeftRadius="lg" fontSize="0.8rem">
+                  {new Intl.NumberFormat("en-IN").format(d.dose)} mg
+                </Td>
+                <Td fontSize="0.8rem">Q{d.freq}</Td>
+                <Td fontSize="0.8rem">{d.peak}</Td>
+                <Td fontSize="0.8rem">{d.trough}</Td>
+                <Td
+                  color={d.auc > 390 && d.auc < 610 && "green.500"}
+                  borderRightRadius="lg"
+                  fontSize="0.8rem"
+                >
+                  {d.auc}
+                </Td>
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
+      </TableContainer>
       {selectedDose && (
         <Note
           dose={selectedDose.dose}
@@ -84,3 +122,28 @@ export default function Levels({ ke, vancoCl, vd }) {
     </Flex>
   );
 }
+
+// {goalDoses.map((d, i) => (
+//   <Flex
+//     key={i}
+//     gap="1.5em"
+//     alignItems="center"
+//     onClick={() => handleClick(d, i)}
+//     borderRadius="lg"
+//     bgColor={selectedDose?.doseIndex === i ? "grayBgToken" : "bgToken"}
+//     boxShadow={selectedDose?.doseIndex === i && "md"}
+//     _hover={{
+//       transition: "0.1s ease-in",
+//       cursor: "pointer",
+//       bgColor: "grayHoverToken",
+//     }}
+//     transition="0.5s ease-in" /* hover off transition */
+//     px={2}
+//   >
+//     <Text>{d.dose}mg</Text>
+//     <Text>Q{d.freq}</Text>
+//     <Text>{d.peak}</Text>
+//     <Text>{d.cMin}</Text>
+//     <Text color={d.auc > 390 && d.auc < 610 && "green.500"}>{d.auc}</Text>
+//   </Flex>
+// ))}

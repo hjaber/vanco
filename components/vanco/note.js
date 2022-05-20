@@ -15,7 +15,6 @@ export default function Note({ dose, freq, infusionTime }) {
     trough: 3,
     peakStr: "3rd dose",
     troughStr: "4th dose",
-    boolean: "false",
   };
 
   const fourthPeak = {
@@ -23,7 +22,13 @@ export default function Note({ dose, freq, infusionTime }) {
     trough: 4,
     peakStr: "4th dose",
     troughStr: "5th dose",
-    boolean: "true",
+  };
+
+  const fifthPeak = {
+    peak: 4,
+    trough: 5,
+    peakStr: "5th dose",
+    troughStr: "6th dose",
   };
 
   const options = {
@@ -67,8 +72,15 @@ export default function Note({ dose, freq, infusionTime }) {
 
   const handleLvlChange = (e) => {
     //peak/trough set as peak - 1 and trough -1 to accurately calc timing
-    const obj = e === "true" ? fourthPeak : thirdPeak;
-    setLvl(obj);
+    if (e === "3") {
+      setLvl(thirdPeak);
+    }
+    if (e === "4") {
+      setLvl(fourthPeak);
+    }
+    if (e === "5") {
+      setLvl(fifthPeak);
+    }
   };
 
   return (
@@ -106,14 +118,17 @@ export default function Note({ dose, freq, infusionTime }) {
             onChange={handleLvlChange}
             de="true"
             size="sm"
-            defaultValue={lvl.boolean}
+            defaultValue="4"
           >
             <Flex justifyContent="center" gap="0.5em">
-              <Radio value="false" spacing="0.3em">
+              <Radio value="3" spacing="0.3em">
                 3/4
               </Radio>
-              <Radio value="true" spacing="0.3em">
+              <Radio value="4" spacing="0.3em">
                 4/5
+              </Radio>
+              <Radio value="5" spacing="0.3em">
+                5/6
               </Radio>
             </Flex>
           </RadioGroup>
@@ -124,20 +139,12 @@ export default function Note({ dose, freq, infusionTime }) {
           1. Initiated vancomycin {dose}mg IV Q{freq}H on {formattedFirstDose}
         </Text>
         <Text>
-          2. Peak ordered {getPeak(lvl.peak)} (1 hour after end of {lvl.peakStr}
-          ). Trough ordered {getTrough(lvl.trough)} (30 min before{" "}
+          2. Peak ordered on {getPeak(lvl.peak)} (1 hour after end of{" "}
+          {lvl.peakStr}
+          ). Trough ordered on {getTrough(lvl.trough)} (30 min before{" "}
           {lvl.troughStr}).
         </Text>
       </Flex>
     </Flex>
   );
 }
-
-// const addHours = (numOfHours) => {
-//   //copy date to prevent mutation of dateObj
-//   const dateCopy = new Date("May 19, 2022 21:00:00");
-//   const result = dateCopy.setTime(
-//     dateCopy.getTime() + numOfHours * 60 * 60 * 1000
-//   );
-//   return new Intl.DateTimeFormat("en-US", options).format(result);
-// };
