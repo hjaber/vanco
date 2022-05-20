@@ -15,6 +15,7 @@ export default function Note({ dose, freq, infusionTime }) {
     trough: 3,
     peakStr: "3rd dose",
     troughStr: "4th dose",
+    radioValue: "3",
   };
 
   const fourthPeak = {
@@ -22,6 +23,7 @@ export default function Note({ dose, freq, infusionTime }) {
     trough: 4,
     peakStr: "4th dose",
     troughStr: "5th dose",
+    radioValue: "4",
   };
 
   const fifthPeak = {
@@ -29,6 +31,7 @@ export default function Note({ dose, freq, infusionTime }) {
     trough: 5,
     peakStr: "5th dose",
     troughStr: "6th dose",
+    radioValue: "5",
   };
 
   const options = {
@@ -118,7 +121,8 @@ export default function Note({ dose, freq, infusionTime }) {
             onChange={handleLvlChange}
             de="true"
             size="sm"
-            defaultValue="4"
+            defaultValue={lvl.radioValue}
+            //value={firstDose.radioValue}
           >
             <Flex justifyContent="center" gap="0.5em">
               <Radio value="3" spacing="0.3em">
@@ -134,7 +138,7 @@ export default function Note({ dose, freq, infusionTime }) {
           </RadioGroup>
         </FormControl>
       </Flex>
-      <Flex direction="column">
+      <Flex direction="column" fontSize="0.8em">
         <Text>
           1. Initiated vancomycin {dose}mg IV Q{freq}H on {formattedFirstDose}
         </Text>
