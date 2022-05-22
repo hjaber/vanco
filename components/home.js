@@ -18,7 +18,7 @@ export default function Home() {
   return (
     <Box>
       <form autoComplete="off">
-        <Flex direction="column" gap="1em">
+        <Flex direction="column" gap="1rem">
           <Box alignSelf="end">
             <DarkMode />
           </Box>

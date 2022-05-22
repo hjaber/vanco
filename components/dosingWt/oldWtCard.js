@@ -12,8 +12,8 @@ export default function OldWtCard({
   setCrclWt,
 }) {
   return (
-    <Flex gap="1em" direction="column">
-      <SimpleGrid columns={3} spacing="0.8em" m="auto">
+    <Flex gap="1rem" direction="column">
+      <SimpleGrid columns={3} spacing="0.8rem" m="auto">
         {weights.map((wt) => (
           <Flex
             key={wt.type}
@@ -25,7 +25,7 @@ export default function OldWtCard({
               })
             }
             direction="column"
-            gap="0.2em"
+            gap="0.2rem"
             alignItems="center"
             borderRadius="lg"
             borderWidth="3px"
@@ -40,10 +40,10 @@ export default function OldWtCard({
             transition="0.5s ease-in" /* hover off transition */
             p={1} /* give borderRadius background extra space */
           >
-            <Text color="grayTextToken" fontSize="0.8em">
+            <Text color="grayTextToken" fontSize="0.8rem">
               {wt.type}
             </Text>
-            <Text fontSize="0.8em">{wt.value} kg</Text>
+            <Text fontSize="0.8rem">{wt.value} kg</Text>
             {/* scr > 0.067 comes from the IDMS to conventional SCr conversion, min scr value = 0.067 */}
             {pt.scr > 0.067 && <CrCl crcl={wt.crcl} />}
           </Flex>

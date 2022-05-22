@@ -39,7 +39,7 @@ export default function DosingWt({ pt }) {
       type: "vd",
       value: vd,
       unit: (
-        <span fontSize="0.6em">
+        <span fontSize="0.6rem">
           L ({formatNum(vd / weight, 2)} <sup>L</sup>&frasl;<sub>kg</sub>)
         </span>
       ),
@@ -49,7 +49,7 @@ export default function DosingWt({ pt }) {
       type: "ke",
       value: ke,
       unit: (
-        <span fontSize="0.6em">
+        <span fontSize="0.6rem">
           &nbsp;hr<sup>-1</sup>
         </span>
       ),
@@ -124,8 +124,8 @@ export default function DosingWt({ pt }) {
     },
   ];
   return (
-    <Flex direction="column" gap="1em">
-      <SimpleGrid columns={3} spacing="0.8em" m="auto">
+    <Flex direction="column" gap="1rem">
+      <SimpleGrid columns={3} spacing="0.8rem" m="auto">
         {weights.map((wt) => (
           <WtCard
             key={wt.type}
@@ -160,7 +160,13 @@ export default function DosingWt({ pt }) {
           ))}
       </SimpleGrid>
       {pt.scr > 0.067 && pt.vancomycin && (
-        <Vancomycin ke={ke} vancoCl={vancoCl} vd={vd} halfLife={halfLife} />
+        <Vancomycin
+          ke={ke}
+          halfLife={halfLife}
+          weight={pt.weight}
+          vancoCl={vancoCl}
+          vd={vd}
+        />
       )}
     </Flex>
   );

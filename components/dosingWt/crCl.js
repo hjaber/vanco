@@ -14,7 +14,7 @@ export default function CrCl({ crcl }) {
       }
     >
       {displayCrcl}
-      <span fontSize="0.6em">
+      <span fontSize="0.6rem">
         &nbsp;<sup>mL</sup>&frasl;
         <sub>min</sub>
       </span>

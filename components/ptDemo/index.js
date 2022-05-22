@@ -9,9 +9,9 @@ import VancoToggle from "@/components/ptDemo/vancoToggle";
 
 export default function PatientInfo({ handleChange, pt, setPt }) {
   return (
-    <Flex direction="column" gap="1em">
+    <Flex direction="column" gap="1rem">
       <Flex
-        gap="1em"
+        gap="1rem"
         flexWrap="wrap"
         justifyContent="space-around"
         alignItems="center"

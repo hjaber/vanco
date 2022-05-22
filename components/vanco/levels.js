@@ -11,10 +11,17 @@ import {
 } from "@chakra-ui/react";
 import { doses } from "@/components/vanco/doses";
 import Note from "@/components/vanco/note";
+import LoadingDose from "@/components/vanco/loadingDose";
+import { formatDose, formatLd } from "@/lib/helper";
 
-export default function Levels({ ke, halfLife, vancoCl, vd }) {
+export default function Levels({ ke, halfLife, vancoCl, vd, weight }) {
   const [selectedDose, setSelectedDose] = useState(null);
-
+  const [ld, setLd] = useState({ dose: 20, str: formatLd(20 * weight) });
+  const loadingDoses = [
+    { dose: 15, str: formatLd(15 * weight), value: formatDose(15 * weight) },
+    { dose: 20, str: formatLd(20 * weight), value: formatDose(20 * weight) },
+    { dose: 25, str: formatLd(25 * weight), value: formatDose(25 * weight) },
+  ];
   const labels = ["dose", "freq", "peak", "trough", "auc"];
 
   const handleClick = (d, i) => {
@@ -49,15 +56,29 @@ export default function Levels({ ke, halfLife, vancoCl, vd }) {
 
   const goalDoses = allDoses.filter(
     (d) =>
-      d.auc > 300 &&
-      d.auc < 700 &&
+      d.auc > 330 &&
+      d.auc < 670 &&
       d.freq > halfLife / 2 &&
-      d.trough < 22 &&
+      d.freq < halfLife * 2.25 &&
+      d.trough < 23 &&
       d.trough > 5
   );
 
   return (
     <Flex direction="column" gap="1em" alignItems="center">
+      <Flex gap="1rem">
+        {loadingDoses.map((l) => (
+          <LoadingDose
+            key={l.dose}
+            dose={l.dose}
+            ld={ld}
+            str={l.str}
+            setLd={setLd}
+            value={l.value}
+          />
+        ))}
+      </Flex>
+
       <TableContainer>
         <Table size="sm" variant="unstyled">
           <Thead>
@@ -93,7 +114,7 @@ export default function Levels({ ke, halfLife, vancoCl, vd }) {
                 transition="0.3s ease-in" /* hover off transition */
               >
                 <Td borderLeftRadius="lg" fontSize="0.8rem">
-                  {new Intl.NumberFormat("en-IN").format(d.dose)} mg
+                  {formatDose(d.dose)}
                 </Td>
                 <Td fontSize="0.8rem">Q{d.freq}</Td>
                 <Td fontSize="0.8rem">{d.peak}</Td>
@@ -117,6 +138,7 @@ export default function Levels({ ke, halfLife, vancoCl, vd }) {
           infusionTime={selectedDose.infusionTime}
           //added key so default lvl timing changes from 3/4 & 4/5 depending on freq selected
           key={selectedDose.dose + selectedDose.freq}
+          loadingDose={ld.str}
         />
       )}
     </Flex>
