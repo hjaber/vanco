@@ -161,6 +161,7 @@ export default function DosingWt({ pt }) {
       </SimpleGrid>
       {pt.scr > 0.067 && pt.vancomycin && (
         <Vancomycin
+          age={pt.age}
           ke={ke}
           halfLife={halfLife}
           weight={pt.weight}

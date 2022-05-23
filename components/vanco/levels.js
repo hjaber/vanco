@@ -16,7 +16,7 @@ import LoadingDose from "@/components/vanco/loadingDose";
 import { formatDose, formatLd } from "@/lib/helper";
 import LvlTiming from "@/components/vanco/lvlTiming";
 
-export default function Levels({ ke, halfLife, vancoCl, vd, weight }) {
+export default function Levels({ age, ke, halfLife, vancoCl, vd, weight }) {
   const [selectedDose, setSelectedDose] = useState(null);
   const [ld, setLd] = useState({ dose: 20, str: formatLd(20 * weight) });
   const loadingDoses = [
@@ -103,6 +103,8 @@ export default function Levels({ ke, halfLife, vancoCl, vd, weight }) {
       d.freq > halfLife / 2 &&
       //freq less 2x half life
       d.freq < halfLife * 2.25 &&
+      //remove Q6 freq at higher ages
+      d.freq > age / 9 &&
       d.trough < 23 &&
       d.trough > 5
   );
