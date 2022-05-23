@@ -65,7 +65,7 @@ export default function Note({ loadingDose, selectedDose }) {
         </FormControl>
       </Flex>
       <Flex direction="column" fontSize="0.8rem">
-        <Text color="grayTextToken">
+        <Text>
           {loadingDose
             ? `1. Initiated vancomycin ${loadingDose} on ${startTimeStr} followed by ${dose} mg IV Q${freq}H`
             : `1. Initiated vancomycin ${dose} mg IV Q${freq}H on ${startTimeStr} followed by${" "}

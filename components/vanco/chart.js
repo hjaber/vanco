@@ -42,7 +42,7 @@ export default function Chart({
   return (
     <Flex direction="column" gap="0.5rem" fontSize="0.8rem">
       {doseTiming.map((d, i) => (
-        <Text key={d + i}>
+        <Text key={d + i} color="grayTextToken">
           {i + 1}. {d} {addDoses(i)}{" "}
           {i === peakValue && ` peak after ${peakStr} on ${peakTime}`}{" "}
           {i === troughValue && ` trough before ${troughStr} on ${troughTime}`}
