@@ -8,11 +8,13 @@ import {
   Th,
   Td,
   TableContainer,
+  Text,
 } from "@chakra-ui/react";
 import { doses } from "@/components/vanco/doses";
 import Note from "@/components/vanco/note";
 import LoadingDose from "@/components/vanco/loadingDose";
 import { formatDose, formatLd } from "@/lib/helper";
+import LvlTiming from "@/components/vanco/lvlTiming";
 
 export default function Levels({ ke, halfLife, vancoCl, vd, weight }) {
   const [selectedDose, setSelectedDose] = useState(null);
@@ -23,6 +25,41 @@ export default function Levels({ ke, halfLife, vancoCl, vd, weight }) {
     { dose: 25, str: formatLd(25 * weight), value: formatDose(25 * weight) },
   ];
   const labels = ["dose", "freq", "peak", "trough", "auc"];
+  const lvlTimingArr = [
+    {
+      label: (
+        <span>
+          3<sup>rd</sup>/4<sup>th</sup>
+        </span>
+      ),
+      peak: 2,
+      trough: 3,
+      peakStr: "3rd dose",
+      troughStr: "4th dose",
+    },
+    {
+      label: (
+        <span>
+          4<sup>th</sup>/5<sup>th</sup>
+        </span>
+      ),
+      peak: 3,
+      trough: 4,
+      peakStr: "4th dose",
+      troughStr: "5th dose",
+    },
+    {
+      label: (
+        <span>
+          5<sup>th</sup>/6<sup>th</sup>
+        </span>
+      ),
+      peak: 4,
+      trough: 5,
+      peakStr: "5th dose",
+      troughStr: "6th dose",
+    },
+  ];
 
   const handleClick = (d, i) => {
     setSelectedDose({
@@ -30,8 +67,11 @@ export default function Levels({ ke, halfLife, vancoCl, vd, weight }) {
       freq: d.freq,
       infusionTime: d.infusionTime,
       doseIndex: i,
+      ...(d.freq < 13 ? lvlTimingArr[1] : lvlTimingArr[0]),
     });
   };
+
+  console.log(selectedDose);
 
   const allDoses = doses.map((d) => {
     const { dose, infusionTime, freq } = d;
@@ -56,9 +96,12 @@ export default function Levels({ ke, halfLife, vancoCl, vd, weight }) {
 
   const goalDoses = allDoses.filter(
     (d) =>
+      //auc goals
       d.auc > 330 &&
       d.auc < 670 &&
+      //freq more than half of halfLife
       d.freq > halfLife / 2 &&
+      //freq less 2x half life
       d.freq < halfLife * 2.25 &&
       d.trough < 23 &&
       d.trough > 5
@@ -132,40 +175,35 @@ export default function Levels({ ke, halfLife, vancoCl, vd, weight }) {
         </Table>
       </TableContainer>
       {selectedDose && (
-        <Note
-          dose={selectedDose.dose}
-          freq={selectedDose.freq}
-          infusionTime={selectedDose.infusionTime}
-          //added key so default lvl timing changes from 3/4 & 4/5 depending on freq selected
-          key={selectedDose.dose + selectedDose.freq}
-          loadingDose={ld.str}
-        />
+        <Flex direction="column" gap="1rem">
+          <Flex direction="column" gap="0.3rem" alignItems="center">
+            <Text color="grayTextToken" fontSize="0.7rem">
+              level timing
+            </Text>
+            <Flex gap="0.5rem">
+              {lvlTimingArr.map((l) => (
+                <LvlTiming
+                  key={l.peakStr}
+                  label={l.label}
+                  peak={l.peak}
+                  trough={l.trough}
+                  peakStr={l.peakStr}
+                  troughStr={l.troughStr}
+                  selectedDose={selectedDose}
+                  setSelectedDose={setSelectedDose}
+                />
+              ))}
+            </Flex>
+          </Flex>
+          <Note
+            dose={selectedDose.dose}
+            freq={selectedDose.freq}
+            infusionTime={selectedDose.infusionTime}
+            loadingDose={ld.str}
+            selectedDose={selectedDose}
+          />
+        </Flex>
       )}
     </Flex>
   );
 }
-
-// {goalDoses.map((d, i) => (
-//   <Flex
-//     key={i}
-//     gap="1.5em"
-//     alignItems="center"
-//     onClick={() => handleClick(d, i)}
-//     borderRadius="lg"
-//     bgColor={selectedDose?.doseIndex === i ? "grayBgToken" : "bgToken"}
-//     boxShadow={selectedDose?.doseIndex === i && "md"}
-//     _hover={{
-//       transition: "0.1s ease-in",
-//       cursor: "pointer",
-//       bgColor: "grayHoverToken",
-//     }}
-//     transition="0.5s ease-in" /* hover off transition */
-//     px={2}
-//   >
-//     <Text>{d.dose}mg</Text>
-//     <Text>Q{d.freq}</Text>
-//     <Text>{d.peak}</Text>
-//     <Text>{d.cMin}</Text>
-//     <Text color={d.auc > 390 && d.auc < 610 && "green.500"}>{d.auc}</Text>
-//   </Flex>
-// ))}

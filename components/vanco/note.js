@@ -1,45 +1,10 @@
 import { useState } from "react";
 import { Flex, FormControl, FormLabel, Input, Text } from "@chakra-ui/react";
-import LvlTiming from "@/components/vanco/lvlTiming";
 import Chart from "@/components/vanco/chart";
 
-export default function Note({ dose, freq, infusionTime, loadingDose }) {
-  const lvls = [
-    {
-      label: (
-        <span>
-          3<sup>rd</sup>/4<sup>th</sup>
-        </span>
-      ),
-      peak: 2,
-      trough: 3,
-      peakStr: "3rd dose",
-      troughStr: "4th dose",
-    },
-    {
-      label: (
-        <span>
-          4<sup>th</sup>/5<sup>th</sup>
-        </span>
-      ),
-      peak: 3,
-      trough: 4,
-      peakStr: "4th dose",
-      troughStr: "5th dose",
-    },
-    {
-      label: (
-        <span>
-          5<sup>th</sup>/6<sup>th</sup>
-        </span>
-      ),
-      peak: 4,
-      trough: 5,
-      peakStr: "5th dose",
-      troughStr: "6th dose",
-    },
-  ];
-
+export default function Note({ loadingDose, selectedDose }) {
+  const { dose, freq, infusionTime, peak, peakStr, trough, troughStr } =
+    selectedDose;
   const options = {
     month: "numeric",
     day: "numeric",
@@ -49,8 +14,6 @@ export default function Note({ dose, freq, infusionTime, loadingDose }) {
     weekday: "short",
   };
 
-  const initialLvlState = freq < 13 ? lvls[1] : lvls[0];
-  const [lvl, setLvl] = useState(initialLvlState);
   const [startTime, setStartTime] = useState(new Date());
   const startTimeStr = new Intl.DateTimeFormat("en-US", options).format(
     startTime
@@ -97,36 +60,12 @@ export default function Note({ dose, freq, infusionTime, loadingDose }) {
             name="firstDose"
             size="xs"
             variant="flushed"
-
-            //defaultValue={firstDose}
-            //value={firstDose}
-            //"2017-06-01T08:30"
+            m="auto"
           />
         </FormControl>
-
-        <Flex direction="column" gap="0.2rem" alignItems="center">
-          <Text color="grayTextToken" fontSize="0.7rem">
-            level timing
-          </Text>
-
-          <Flex gap="0.5rem">
-            {lvls.map((l) => (
-              <LvlTiming
-                key={l.peakStr}
-                label={l.label}
-                peak={l.peak}
-                trough={l.trough}
-                peakStr={l.peakStr}
-                troughStr={l.troughStr}
-                lvl={lvl}
-                setLvl={setLvl}
-              />
-            ))}
-          </Flex>
-        </Flex>
       </Flex>
       <Flex direction="column" fontSize="0.8rem">
-        <Text>
+        <Text color="grayTextToken">
           {loadingDose
             ? `1. Initiated vancomycin ${loadingDose} on ${startTimeStr} followed by ${dose} mg IV Q${freq}H`
             : `1. Initiated vancomycin ${dose} mg IV Q${freq}H on ${startTimeStr} followed by${" "}
@@ -135,23 +74,21 @@ export default function Note({ dose, freq, infusionTime, loadingDose }) {
           {dose} mg IV Q{freq}H */}
         </Text>
         <Text>
-          2. Peak ordered on {getPeak(lvl.peak)} (1 hour after end of{" "}
-          {lvl.peakStr}
-          ). Trough ordered on {getTrough(lvl.trough)} (30 min before{" "}
-          {lvl.troughStr}).
+          2. Peak ordered on {getPeak(peak)} (1 hour after end of {peakStr}
+          ). Trough ordered on {getTrough(trough)} (30 min before {troughStr}).
         </Text>
       </Flex>
       <Chart
         dose={dose}
         freq={freq}
         loadingDose={loadingDose}
-        peakValue={lvl.peak}
-        peakStr={lvl.peakStr}
-        peakTime={getPeak(lvl.peak)}
+        peakValue={peak}
+        peakStr={peakStr}
+        peakTime={getPeak(peak)}
         startTime={startTime}
-        troughValue={lvl.trough}
-        troughStr={lvl.troughStr}
-        troughTime={getTrough(lvl.trough)}
+        troughValue={trough}
+        troughStr={troughStr}
+        troughTime={getTrough(trough)}
       />
     </Flex>
   );

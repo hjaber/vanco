@@ -6,11 +6,12 @@ export default function LvlTiming({
   trough,
   peakStr,
   troughStr,
-  lvl,
-  setLvl,
+  selectedDose,
+  setSelectedDose,
 }) {
   const handleClick = () => {
-    setLvl({
+    setSelectedDose({
+      ...selectedDose,
       label: label,
       peak: peak,
       trough: trough,
@@ -27,8 +28,8 @@ export default function LvlTiming({
       borderRadius="lg"
       borderWidth="3px"
       borderColor="transparent"
-      bgColor={lvl.peak === peak ? "grayBgToken" : "bgToken"}
-      boxShadow={lvl.peak === peak && "md"}
+      bgColor={selectedDose.peak === peak ? "grayBgToken" : "bgToken"}
+      boxShadow={selectedDose.peak === peak && "md"}
       _hover={{
         transition: "0.1s ease-in",
         cursor: "pointer",
