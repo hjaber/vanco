@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Box, Flex } from "@chakra-ui/react";
 import PtDemo from "@/components/ptDemo/index";
+import DosingWt from "@/components/dosingWt/index";
 import dynamic from "next/dynamic";
 
 export default function Home() {
@@ -12,7 +13,7 @@ export default function Home() {
 
   const handleChange = (name, value) => {
     setPt({ ...pt, [name]: value });
-    //batch draft update
+    //consider batch update of idealWt
     //setPt((v) => ({ ...v, weight: v.weight + 10 }));
   };
   return (
@@ -23,6 +24,10 @@ export default function Home() {
             <DarkMode />
           </Box>
           <PtDemo handleChange={handleChange} pt={pt} setPt={setPt} />
+          {pt.weight > 20 && pt.height > 50 && pt.age > 10 && (
+            //key given to DosingWt to reset useState(renalWt) on each change/render of gender/scr
+            <DosingWt pt={pt} key={pt.gender + pt.scr} />
+          )}
         </Flex>
       </form>
     </Box>

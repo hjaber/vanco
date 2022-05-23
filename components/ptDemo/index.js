@@ -4,7 +4,6 @@ import Creatinine from "@/components/ptDemo/creatinine";
 import Weight from "@/components/ptDemo/weight";
 import Height from "@/components/ptDemo/height";
 import Gender from "@/components/ptDemo/gender";
-import DosingWt from "@/components/dosingWt/index";
 import VancoToggle from "@/components/ptDemo/vancoToggle";
 
 export default function PatientInfo({ handleChange, pt, setPt }) {
@@ -36,11 +35,6 @@ export default function PatientInfo({ handleChange, pt, setPt }) {
       >
         reset
       </Button>
-
-      {pt.weight > 20 && pt.height > 50 && pt.age > 10 && (
-        //key given to DosingWt to reset useState(renalWt) on each change/render of gender/scr
-        <DosingWt pt={pt} key={pt.gender + pt.scr} />
-      )}
     </Flex>
   );
 }
