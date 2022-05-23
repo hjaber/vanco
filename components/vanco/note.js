@@ -70,8 +70,6 @@ export default function Note({ loadingDose, selectedDose }) {
             ? `1. Initiated vancomycin ${loadingDose} on ${startTimeStr} followed by ${dose} mg IV Q${freq}H`
             : `1. Initiated vancomycin ${dose} mg IV Q${freq}H on ${startTimeStr} followed by${" "}
           ${dose} mg IV Q${freq}H`}
-          {/* 1. Initiated vancomycin {loadingDose} on {startTimeStr} followed by{" "}
-          {dose} mg IV Q{freq}H */}
         </Text>
         <Text>
           2. Peak ordered on {getPeak(peak)} (1 hour after end of {peakStr}

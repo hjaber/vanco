@@ -1,17 +1,9 @@
 import { Flex, Text } from "@chakra-ui/react";
 import CrCl from "@/components/dosingWt/crCl";
 
-export default function NewWtCard({
-  crcl,
-  crclWt,
-  scr,
-  setCrclWt,
-  type,
-  value,
-}) {
+export default function WtCard({ crcl, crclWt, scr, setCrclWt, type, value }) {
   return (
     <Flex
-      key={type}
       onClick={() =>
         setCrclWt({
           crcl: crcl,
