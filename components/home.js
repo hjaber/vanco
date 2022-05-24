@@ -9,7 +9,6 @@ export default function Home() {
   const [pt, setPt] = useState({
     gender: "male",
   });
-  console.log(pt);
 
   const handleChange = (name, value) => {
     setPt({ ...pt, [name]: value });

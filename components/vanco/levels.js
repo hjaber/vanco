@@ -71,8 +71,6 @@ export default function Levels({ age, ke, halfLife, vancoCl, vd, weight }) {
     });
   };
 
-  console.log(selectedDose);
-
   const allDoses = doses.map((d) => {
     const { dose, infusionTime, freq } = d;
     const dailyDose = (dose * 24) / freq;
@@ -103,7 +101,7 @@ export default function Levels({ age, ke, halfLife, vancoCl, vd, weight }) {
       d.freq > halfLife / 2 &&
       //freq less 2x half life
       d.freq < halfLife * 2.25 &&
-      //remove Q6 freq at higher ages
+      //remove Q6 freq at ages >54
       d.freq > age / 9 &&
       d.trough < 23 &&
       d.trough > 5
