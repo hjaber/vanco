@@ -18,7 +18,11 @@ import LvlTiming from "@/components/vanco/lvlTiming";
 
 export default function Levels({ age, ke, halfLife, vancoCl, vd, weight }) {
   const [selectedDose, setSelectedDose] = useState(null);
-  const [ld, setLd] = useState({ dose: 20, str: formatLd(20 * weight) });
+  const [ld, setLd] = useState({
+    dose: 25,
+    str: formatLd(25 * weight),
+    value: formatDose(25 * weight),
+  });
   const loadingDoses = [
     { dose: 15, str: formatLd(15 * weight), value: formatDose(15 * weight) },
     { dose: 20, str: formatLd(20 * weight), value: formatDose(20 * weight) },
