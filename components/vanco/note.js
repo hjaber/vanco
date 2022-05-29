@@ -1,93 +1,107 @@
 import { useState } from "react";
-import { Flex, FormControl, FormLabel, Input, Text } from "@chakra-ui/react";
-import Chart from "@/components/vanco/chart";
+import {
+  Box,
+  Flex,
+  Slider,
+  SliderTrack,
+  SliderFilledTrack,
+  SliderThumb,
+  Text,
+} from "@chakra-ui/react";
+import { Temporal } from "@js-temporal/polyfill";
+import { roundFormat } from "@/lib/helper";
 
-export default function Note({ loadingDose, selectedDose }) {
-  const { dose, freq, infusionTime, peak, peakStr, trough, troughStr } =
-    selectedDose;
-  const options = {
-    month: "numeric",
-    day: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-    hourCycle: "h23" /*prevents 24:09*/,
-    weekday: "short",
+export default function Note({ freq, dose, infusionTime, peak, loadingDose }) {
+  const [startTime, setStartTime] = useState(Temporal.Now.plainDateTimeISO());
+  const doseTimes = [
+    ...(loadingDose ? [loadingDose] : []),
+    dose + " mg",
+    dose + " mg",
+    dose + " mg",
+    dose + " mg",
+    dose + " mg",
+    ...(loadingDose ? [] : [dose + " mg"]),
+  ];
+
+  const getPeak = () => {
+    const peakHours = (peak - 1) * freq + infusionTime + 1;
+    const peakMinutes = peakHours * 60;
+    const newPeak = startTime.add({ minutes: peakMinutes });
+    return roundFormat(newPeak);
   };
 
-  const [startTime, setStartTime] = useState(new Date());
-  const startTimeStr = new Intl.DateTimeFormat("en-US", options).format(
-    startTime
-  );
-
-  const getPeak = (numDoses) => {
-    const startTimeCopy = new Date(startTime);
-    const peakHours = numDoses * freq + infusionTime + 1;
-    const peakObj = startTimeCopy.setTime(
-      startTimeCopy.getTime() + peakHours * 60 * 60 * 1000
-    );
-    return new Intl.DateTimeFormat("en-US", options).format(peakObj);
+  const getTrough = () => {
+    const troughHours = peak * freq - 0.5;
+    const troughMinutes = troughHours * 60;
+    const newTrough = startTime.add({ minutes: troughMinutes });
+    return roundFormat(newTrough);
   };
 
-  const getTrough = (numDoses) => {
-    const startTimeCopy = new Date(startTime);
-    const troughHours = numDoses * freq - 0.5;
-    const troughObj = startTimeCopy.setTime(
-      startTimeCopy.getTime() + troughHours * 60 * 60 * 1000
-    );
-    return new Intl.DateTimeFormat("en-US", options).format(troughObj);
+  const doseTiming = (doseNum) => {
+    const doseHours = freq * doseNum;
+    const doseMinutes = doseHours * 60;
+    const newDoseTime = roundFormat(startTime.add({ minutes: doseMinutes }));
+    return newDoseTime;
   };
 
-  const handleStartTimeChange = (e) => {
-    const dateObj = new Date(e.target.value);
-    setStartTime(dateObj);
+  const handleSlider = (val) => {
+    const baselineVal = val - 24;
+    const minutes = baselineVal * 60;
+    const baselineTime = Temporal.Now.plainDateTimeISO();
+    const newStartTime = baselineTime.add({ minutes: minutes });
+    return setStartTime(newStartTime);
   };
 
   return (
     <Flex direction="column" gap="0.5rem">
-      <Flex gap="1rem">
-        <FormControl>
-          <FormLabel
-            htmlFor="firstDose"
-            color="grayTextToken"
-            textAlign="center"
-          >
-            first dose given
-          </FormLabel>
-          <Input
-            type="datetime-local"
-            onChange={handleStartTimeChange}
-            id="firstDose"
-            name="firstDose"
-            size="xs"
-            variant="flushed"
-            m="auto"
-          />
-        </FormControl>
-      </Flex>
+      <Text color="grayTextToken" fontSize="0.7rem" alignSelf="center">
+        first dose given {roundFormat(startTime)}
+      </Text>
+      <Slider
+        onChange={(val) => handleSlider(val)}
+        defaultValue={24}
+        min={0}
+        max={48}
+        step={0.5}
+        focusThumbOnChange={false}
+        w="80vw"
+        aria-label="first-dose time slider"
+      >
+        <SliderTrack>
+          <Box position="relative" right={10} />
+          <SliderFilledTrack bg="transparent" />
+        </SliderTrack>
+        <SliderThumb boxSize={6} bg="gray.400" />
+      </Slider>
       <Flex direction="column" fontSize="0.8rem">
         <Text>
           {loadingDose
-            ? `1. Initiated vancomycin ${loadingDose} on ${startTimeStr} followed by ${dose} mg IV Q${freq}H`
+            ? `1. Initiated vancomycin ${loadingDose} on ${roundFormat(
+                startTime
+              )} followed by ${dose} mg IV Q${freq}H`
             : `1. Initiated vancomycin ${dose} mg IV Q${freq}H on ${startTimeStr} followed by${" "}
           ${dose} mg IV Q${freq}H`}
         </Text>
         <Text>
-          2. Peak ordered on {getPeak(peak)} (1 hour after end of {peakStr}
-          ). Trough ordered on {getTrough(trough)} (30 min before {troughStr}).
+          2. Peak ordered on {getPeak(peak)} (1 hour after end of{" "}
+          {peak === 3 ? "3rd" : `${peak}th`}
+          ). Trough ordered on {getTrough(peak - 1)} (30 min before {peak + 1}
+          th dose).
         </Text>
       </Flex>
-      <Chart
-        dose={dose}
-        freq={freq}
-        loadingDose={loadingDose}
-        peakValue={peak}
-        peakStr={peakStr}
-        peakTime={getPeak(peak)}
-        startTime={startTime}
-        troughValue={trough}
-        troughStr={troughStr}
-        troughTime={getTrough(trough)}
-      />
+      <Flex direction="column" gap="0.5rem" fontSize="0.8rem">
+        {doseTimes.map((d, i) => (
+          <Text key={i} color="grayTextToken">
+            {i + 1}. {d} {doseTiming(i)}{" "}
+            {i + 1 === peak &&
+              ` peak after ${
+                peak === 3 ? "3rd" : `${peak}th`
+              } dose on ${getPeak()}`}{" "}
+            {i === peak &&
+              ` trough before ${peak + 1}th dose on ${getTrough()}`}
+          </Text>
+        ))}
+      </Flex>
     </Flex>
   );
 }

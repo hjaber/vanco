@@ -3,12 +3,9 @@ export default function Chart({
   dose,
   freq,
   loadingDose,
-  peakValue,
-  peakStr,
+  peak,
   peakTime,
   startTime,
-  troughValue,
-  troughStr,
   troughTime,
 }) {
   const options = {
@@ -44,8 +41,11 @@ export default function Chart({
       {doseTiming.map((d, i) => (
         <Text key={d + i} color="grayTextToken">
           {i + 1}. {d} {addDoses(i)}{" "}
-          {i === peakValue && ` peak after ${peakStr} on ${peakTime}`}{" "}
-          {i === troughValue && ` trough before ${troughStr} on ${troughTime}`}
+          {i + 1 === peak &&
+            ` peak after ${
+              peak === 3 ? "3rd" : `${peak}th`
+            } dose on ${peakTime}`}{" "}
+          {i === peak && ` trough before ${peak + 1}th dose on ${troughTime}`}
         </Text>
       ))}
     </Flex>

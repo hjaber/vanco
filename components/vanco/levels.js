@@ -14,7 +14,7 @@ import { doses } from "@/components/vanco/doses";
 import Note from "@/components/vanco/note";
 import LoadingDose from "@/components/vanco/loadingDose";
 import { formatDose, formatLd } from "@/lib/helper";
-import LvlTiming from "@/components/vanco/lvlTiming";
+import Peaks from "@/components/vanco/peaks";
 
 export default function Levels({ age, ke, halfLife, vancoCl, vd, weight }) {
   const [selectedDose, setSelectedDose] = useState(null);
@@ -29,41 +29,7 @@ export default function Levels({ age, ke, halfLife, vancoCl, vd, weight }) {
     { dose: 25, str: formatLd(25 * weight), value: formatDose(25 * weight) },
   ];
   const labels = ["dose", "freq", "peak", "trough", "auc"];
-  const lvlTimingArr = [
-    {
-      label: (
-        <span>
-          3<sup>rd</sup>/4<sup>th</sup>
-        </span>
-      ),
-      peak: 2,
-      trough: 3,
-      peakStr: "3rd dose",
-      troughStr: "4th dose",
-    },
-    {
-      label: (
-        <span>
-          4<sup>th</sup>/5<sup>th</sup>
-        </span>
-      ),
-      peak: 3,
-      trough: 4,
-      peakStr: "4th dose",
-      troughStr: "5th dose",
-    },
-    {
-      label: (
-        <span>
-          5<sup>th</sup>/6<sup>th</sup>
-        </span>
-      ),
-      peak: 4,
-      trough: 5,
-      peakStr: "5th dose",
-      troughStr: "6th dose",
-    },
-  ];
+  const firstPeaks = [3, 4, 5];
 
   const handleClick = (d, i) => {
     setSelectedDose({
@@ -71,7 +37,7 @@ export default function Levels({ age, ke, halfLife, vancoCl, vd, weight }) {
       freq: d.freq,
       infusionTime: d.infusionTime,
       doseIndex: i,
-      ...(d.freq < 13 ? lvlTimingArr[1] : lvlTimingArr[0]),
+      peak: d.freq < 13 ? 4 : 3,
     });
   };
 
@@ -148,11 +114,9 @@ export default function Levels({ age, ke, halfLife, vancoCl, vd, weight }) {
               <Tr
                 key={i}
                 onClick={() => handleClick(d, i)}
-                //borderRadius="lg"
                 bgColor={
                   selectedDose?.doseIndex === i ? "grayBgToken" : "bgToken"
                 }
-                //boxShadow={selectedDose?.doseIndex === i && "md"}
                 _hover={{
                   transition: "0.1s ease-in",
                   cursor: "pointer",
@@ -182,17 +146,13 @@ export default function Levels({ age, ke, halfLife, vancoCl, vd, weight }) {
         <Flex direction="column" gap="1rem">
           <Flex direction="column" gap="0.3rem" alignItems="center">
             <Text color="grayTextToken" fontSize="0.7rem">
-              level timing
+              peak trough
             </Text>
             <Flex gap="0.5rem">
-              {lvlTimingArr.map((l) => (
-                <LvlTiming
-                  key={l.peakStr}
-                  label={l.label}
-                  peak={l.peak}
-                  trough={l.trough}
-                  peakStr={l.peakStr}
-                  troughStr={l.troughStr}
+              {firstPeaks.map((peak) => (
+                <Peaks
+                  key={peak}
+                  peak={peak}
                   selectedDose={selectedDose}
                   setSelectedDose={setSelectedDose}
                 />
@@ -203,8 +163,8 @@ export default function Levels({ age, ke, halfLife, vancoCl, vd, weight }) {
             dose={selectedDose.dose}
             freq={selectedDose.freq}
             infusionTime={selectedDose.infusionTime}
+            peak={selectedDose.peak}
             loadingDose={ld.str}
-            selectedDose={selectedDose}
           />
         </Flex>
       )}

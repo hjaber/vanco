@@ -1,10 +1,10 @@
-import { Box, FormControl, FormLabel, Switch } from "@chakra-ui/react";
+import { Box, Flex, FormLabel, Switch } from "@chakra-ui/react";
 
 export default function VancoToggle({ handleChange, vancomycin }) {
   return (
     <Box>
-      <FormControl display="flex" flexDirection="column" alignItems="center">
-        <FormLabel fontSize="xs" color="gray" htmlFor="vancomycin">
+      <Flex direction="column" alignItems="center">
+        <FormLabel fontSize="xs" color="grayTextToken" htmlFor="vancomycin">
           vancomycin
         </FormLabel>
         <Switch
@@ -16,7 +16,7 @@ export default function VancoToggle({ handleChange, vancomycin }) {
           size="sm"
           isChecked={vancomycin}
         />
-      </FormControl>
+      </Flex>
     </Box>
   );
 }
