@@ -67,8 +67,9 @@ export default function Note({ freq, dose, infusionTime, peak, loadingDose }) {
         max={48}
         step={0.5}
         focusThumbOnChange={false}
-        w="80vw"
+        w={{ base: "70%", md: "40%" }}
         aria-label="first-dose time slider"
+        alignSelf="center"
       >
         <SliderTrack>
           <Box position="relative" right={10} />
