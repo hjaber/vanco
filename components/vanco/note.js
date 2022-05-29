@@ -55,7 +55,10 @@ export default function Note({ freq, dose, infusionTime, peak, loadingDose }) {
   return (
     <Flex direction="column" gap="0.5rem">
       <Text color="grayTextToken" fontSize="0.7rem" alignSelf="center">
-        first dose given {roundFormat(startTime)}
+        first dose given
+      </Text>
+      <Text fontSize="0.7rem" alignSelf="center">
+        {roundFormat(startTime)}
       </Text>
       <Slider
         onChange={(val) => handleSlider(val)}
@@ -71,7 +74,7 @@ export default function Note({ freq, dose, infusionTime, peak, loadingDose }) {
           <Box position="relative" right={10} />
           <SliderFilledTrack bg="transparent" />
         </SliderTrack>
-        <SliderThumb boxSize={6} bg="gray.400" />
+        <SliderThumb boxSize={6} bg="grayTextToken" />
       </Slider>
       <Flex direction="column" fontSize="0.8rem">
         <Text>
