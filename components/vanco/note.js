@@ -83,7 +83,7 @@ export default function Note({ freq, dose, infusionTime, peak, loadingDose }) {
             ? `1. Initiated vancomycin ${loadingDose} on ${roundFormat(
                 startTime
               )} followed by ${dose} mg IV Q${freq}H`
-            : `1. Initiated vancomycin ${dose} mg IV Q${freq}H on ${startTimeStr} followed by${" "}
+            : `1. Initiated vancomycin ${dose} mg IV Q${freq}H on ${startTime} followed by${" "}
           ${dose} mg IV Q${freq}H`}
         </Text>
         <Text>
