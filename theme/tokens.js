@@ -10,7 +10,7 @@ export const tokens = {
     },
     grayBgToken: {
       default: "gray.100",
-      _dark: "gray.800",
+      _dark: "gray.700",
     },
     grayTextToken: {
       default: "gray.500",
