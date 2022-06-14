@@ -88,8 +88,8 @@ export default function Note({ freq, dose, infusionTime, peak, loadingDose }) {
         </Text>
         <Text>
           2. Peak ordered on {getPeak(peak)} (1 hour after end of{" "}
-          {peak === 3 ? "3rd" : `${peak}th`}
-          ). Trough ordered on {getTrough(peak - 1)} (30 min before {peak + 1}
+          {peak === 3 ? "3rd" : `${peak}th`} dose). Trough ordered on{" "}
+          {getTrough(peak - 1)} (30 min before {peak + 1}
           th dose).
         </Text>
       </Flex>

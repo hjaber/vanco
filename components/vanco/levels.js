@@ -88,6 +88,7 @@ export default function Levels({ age, ke, halfLife, vancoCl, vd, weight }) {
             str={l.str}
             setLd={setLd}
             value={l.value}
+            weight={weight}
           />
         ))}
       </Flex>

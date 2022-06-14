@@ -1,6 +1,6 @@
 import { Flex, Text } from "@chakra-ui/react";
 
-export default function LoadingDose({ dose, str, ld, setLd, value }) {
+export default function LoadingDose({ dose, str, ld, setLd, value, weight }) {
   const handleClick = () => {
     if (dose === ld.dose) {
       setLd("");
@@ -36,7 +36,10 @@ export default function LoadingDose({ dose, str, ld, setLd, value }) {
         {dose} mg/kg
       </Text>
       <Text fontSize="0.8rem">{str}</Text>
-      <Text fontSize="0.6rem" color="grayTextToken">
+      <Text
+        fontSize="0.6rem"
+        color={weight * dose > 2000 ? "yellowWarningToken" : "grayTextToken"}
+      >
         ({value})
       </Text>
     </Flex>
