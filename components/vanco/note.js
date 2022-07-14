@@ -1,26 +1,27 @@
-import { useState } from "react";
+import { formatDose, roundFormat } from "@/lib/helper";
 import {
   Box,
   Flex,
   Slider,
-  SliderTrack,
   SliderFilledTrack,
   SliderThumb,
+  SliderTrack,
   Text,
 } from "@chakra-ui/react";
 import { Temporal } from "@js-temporal/polyfill";
-import { roundFormat } from "@/lib/helper";
+import { useState } from "react";
 
 export default function Note({ freq, dose, infusionTime, peak, loadingDose }) {
   const [startTime, setStartTime] = useState(Temporal.Now.plainDateTimeISO());
+  const stringDose = formatDose(dose);
   const doseTimes = [
     ...(loadingDose ? [loadingDose] : []),
-    dose + " mg",
-    dose + " mg",
-    dose + " mg",
-    dose + " mg",
-    dose + " mg",
-    ...(loadingDose ? [] : [dose + " mg"]),
+    stringDose,
+    stringDose,
+    stringDose,
+    stringDose,
+    stringDose,
+    ...(loadingDose ? [] : [stringDose]),
   ];
 
   const getPeak = () => {
@@ -82,9 +83,11 @@ export default function Note({ freq, dose, infusionTime, peak, loadingDose }) {
           {loadingDose
             ? `1. Initiated vancomycin ${loadingDose} on ${roundFormat(
                 startTime
-              )} followed by ${dose} mg IV Q${freq}H`
-            : `1. Initiated vancomycin ${dose} mg IV Q${freq}H on ${startTime} followed by${" "}
-          ${dose} mg IV Q${freq}H`}
+              )} followed by ${stringDose} IV Q${freq}H`
+            : `1. Initiated vancomycin ${stringDose} IV Q${freq}H on ${roundFormat(
+                startTime
+              )} followed by${" "}
+          ${stringDose} IV Q${freq}H`}
         </Text>
         <Text>
           2. Peak ordered on {getPeak(peak)} (1 hour after end of{" "}
